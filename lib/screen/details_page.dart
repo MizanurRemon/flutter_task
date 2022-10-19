@@ -35,9 +35,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: SingleChildScrollView(
-        child: buildBody(context),
-      ),
+      body: buildBody(context),
     );
   }
 
@@ -47,84 +45,85 @@ class _DetailsPageState extends State<DetailsPage> {
         builder: (context, snapshot) {
           //print("model data ${detailsResponse.title}");
 
-          if (snapshot.data == null) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return Container(
-              padding: EdgeInsets.all(value),
-              child: Card(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            padding: EdgeInsets.all(value),
-                            color: Colors.blueGrey,
-                            child: Center(
-                              child: Text(
-                                "UserID: ${snapshot.data?.userId.toString()}",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            padding: EdgeInsets.all(value),
-                            color: Colors.deepPurple,
-                            child: Center(
-                              child: Text(
-                                "ID: ${snapshot.data?.id.toString()}",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      color: Colors.transparent,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(value),
-                      child: Row(
+          if (snapshot.hasData) {
+            return SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(value),
+                child: Card(
+                  child: Column(
+                    children: [
+                      Row(
                         children: [
-                          Text(
-                            "title: ${snapshot.data?.title.toString()}",
-                            style: TextStyle(color: Colors.black, fontSize: 20),
-                          ),
-                          Spacer(),
-                          Column(
-                            children: [
-                              Checkbox(
-                                value: snapshot.data?.completed,
-                                onChanged: null,
-                                checkColor: Colors.white,
-                                fillColor:
-                                    MaterialStateProperty.all(Colors.black),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              padding: EdgeInsets.all(value),
+                              color: Colors.blueGrey,
+                              child: Center(
+                                child: Text(
+                                  "UserID: ${snapshot.data?.userId.toString()}",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
                               ),
-                              //Text(status ? "Completed" : "Not Completed")
-                            ],
-                          )
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              padding: EdgeInsets.all(value),
+                              color: Colors.deepPurple,
+                              child: Center(
+                                child: Text(
+                                  "ID: ${snapshot.data?.id.toString()}",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                    )
-                  ],
+                      Divider(
+                        color: Colors.transparent,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(value),
+                        child: Row(
+                          children: [
+                            Text(
+                              "title: ${snapshot.data?.title.toString()}",
+                              style: TextStyle(color: Colors.black, fontSize: 20),
+                            ),
+                            Spacer(),
+                            Column(
+                              children: [
+                                Checkbox(
+                                  value: snapshot.data?.completed,
+                                  onChanged: null,
+                                  checkColor: Colors.white,
+                                  fillColor:
+                                  MaterialStateProperty.all(Colors.black),
+                                ),
+                                //Text(status ? "Completed" : "Not Completed")
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             );
           }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         });
   }
 
