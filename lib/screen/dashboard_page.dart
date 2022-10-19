@@ -133,7 +133,7 @@ class _DashboardPageState extends State<DashboardPage> {
             );
           }
 
-          return const CircularProgressIndicator();
+          return Center(child: const CircularProgressIndicator(),);
         },
       ),
     );
